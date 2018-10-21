@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wgc.logistics.dao.AugustOrderListMapper">
+  <resultMap id="BaseResultMap" type="com.wgc.logistics.entity.AugustOrderList">
+    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="order_type" jdbcType="INTEGER" property="orderType" />
+    <result column="receipt_id" jdbcType="INTEGER" property="receiptId" />
+    <result column="order_goods_name" jdbcType="VARCHAR" property="orderGoodsName" />
+    <result column="order_goods_weight" jdbcType="INTEGER" property="orderGoodsWeight" />
+    <result column="order_mailer" jdbcType="VARCHAR" property="orderMailer" />
+    <result column="order_mail_address" jdbcType="VARCHAR" property="orderMailAddress" />
+    <result column="order_receiving_address" jdbcType="VARCHAR" property="orderReceivingAddress" />
+    <result column="order_state" jdbcType="INTEGER" property="orderState" />
+    <result column="order_mailer_phone" jdbcType="VARCHAR" property="orderMailerPhone" />
+    <result column="order_consignee" jdbcType="VARCHAR" property="orderConsignee" />
+    <result column="order_consignee_phone" jdbcType="VARCHAR" property="orderConsigneePhone" />
+    <result column="order_start_city" jdbcType="VARCHAR" property="orderStartCity" />
+    <result column="order_midpoint_city" jdbcType="VARCHAR" property="orderMidpointCity" />
+    <result column="order_end_city" jdbcType="VARCHAR" property="orderEndCity" />
+    <result column="order_delivery_price" jdbcType="DECIMAL" property="orderDeliveryPrice" />
+    <result column="order_distribution_price" jdbcType="DECIMAL" property="orderDistributionPrice" />
+    <result column="order_transport_price" jdbcType="DECIMAL" property="orderTransportPrice" />
+    <result column="order_total_price" jdbcType="DECIMAL" property="orderTotalPrice" />
+    <result column="order_lorry" jdbcType="VARCHAR" property="orderLorry" />
+    <result column="order_remarks" jdbcType="VARCHAR" property="orderRemarks" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_id, order_type, receipt_id, order_goods_name, order_goods_weight, order_mailer, 
+    order_mail_address, order_receiving_address, order_state, order_mailer_phone, order_consignee, 
+    order_consignee_phone, order_start_city, order_midpoint_city, order_end_city, order_delivery_price, 
+    order_distribution_price, order_transport_price, order_total_price, order_lorry, 
+    order_remarks
+  </sql>
+  <select id="selectByExample" parameterType="com.wgc.logistics.entity.AugustOrderListExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from august_order_list
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from august_order_list
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from august_order_list
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wgc.logistics.entity.AugustOrderListExample">
+    delete from august_order_list
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wgc.logistics.entity.AugustOrderList">
+    insert into august_order_list (order_id, order_type, receipt_id, 
+      order_goods_name, order_goods_weight, order_mailer, 
+      order_mail_address, order_receiving_address, 
+      order_state, order_mailer_phone, order_consignee, 
+      order_consignee_phone, order_start_city, order_midpoint_city, 
+      order_end_city, order_delivery_price, order_distribution_price, 
+      order_transport_price, order_total_price, order_lorry, 
+      order_remarks)
+    values (#{orderId,jdbcType=INTEGER}, #{orderType,jdbcType=INTEGER}, #{receiptId,jdbcType=INTEGER}, 
+      #{orderGoodsName,jdbcType=VARCHAR}, #{orderGoodsWeight,jdbcType=INTEGER}, #{orderMailer,jdbcType=VARCHAR}, 
+      #{orderMailAddress,jdbcType=VARCHAR}, #{orderReceivingAddress,jdbcType=VARCHAR}, 
+      #{orderState,jdbcType=INTEGER}, #{orderMailerPhone,jdbcType=VARCHAR}, #{orderConsignee,jdbcType=VARCHAR}, 
+      #{orderConsigneePhone,jdbcType=VARCHAR}, #{orderStartCity,jdbcType=VARCHAR}, #{orderMidpointCity,jdbcType=VARCHAR}, 
+      #{orderEndCity,jdbcType=VARCHAR}, #{orderDeliveryPrice,jdbcType=DECIMAL}, #{orderDistributionPrice,jdbcType=DECIMAL}, 
+      #{orderTransportPrice,jdbcType=DECIMAL}, #{orderTotalPrice,jdbcType=DECIMAL}, #{orderLorry,jdbcType=VARCHAR}, 
+      #{orderRemarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wgc.logistics.entity.AugustOrderList">
+    insert into august_order_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderType != null">
+        order_type,
+      </if>
+      <if test="receiptId != null">
+        receipt_id,
+      </if>
+      <if test="orderGoodsName != null">
+        order_goods_name,
+      </if>
+      <if test="orderGoodsWeight != null">
+        order_goods_weight,
+      </if>
+      <if test="orderMailer != null">
+        order_mailer,
+      </if>
+      <if test="orderMailAddress != null">
+        order_mail_address,
+      </if>
+      <if test="orderReceivingAddress != null">
+        order_receiving_address,
+      </if>
+      <if test="orderState != null">
+        order_state,
+      </if>
+      <if test="orderMailerPhone != null">
+        order_mailer_phone,
+      </if>
+      <if test="orderConsignee != null">
+        order_consignee,
+      </if>
+      <if test="orderConsigneePhone != null">
+        order_consignee_phone,
+      </if>
+      <if test="orderStartCity != null">
+        order_start_city,
+      </if>
+      <if test="orderMidpointCity != null">
+        order_midpoint_city,
+      </if>
+      <if test="orderEndCity != null">
+        order_end_city,
+      </if>
+      <if test="orderDeliveryPrice != null">
+        order_delivery_price,
+      </if>
+      <if test="orderDistributionPrice != null">
+        order_distribution_price,
+      </if>
+      <if test="orderTransportPrice != null">
+        order_transport_price,
+      </if>
+      <if test="orderTotalPrice != null">
+        order_total_price,
+      </if>
+      <if test="orderLorry != null">
+        order_lorry,
+      </if>
+      <if test="orderRemarks != null">
+        order_remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptId != null">
+        #{receiptId,jdbcType=INTEGER},
+      </if>
+      <if test="orderGoodsName != null">
+        #{orderGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderGoodsWeight != null">
+        #{orderGoodsWeight,jdbcType=INTEGER},
+      </if>
+      <if test="orderMailer != null">
+        #{orderMailer,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMailAddress != null">
+        #{orderMailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderReceivingAddress != null">
+        #{orderReceivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null">
+        #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="orderMailerPhone != null">
+        #{orderMailerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderConsignee != null">
+        #{orderConsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="orderConsigneePhone != null">
+        #{orderConsigneePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStartCity != null">
+        #{orderStartCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMidpointCity != null">
+        #{orderMidpointCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderEndCity != null">
+        #{orderEndCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDeliveryPrice != null">
+        #{orderDeliveryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderDistributionPrice != null">
+        #{orderDistributionPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTransportPrice != null">
+        #{orderTransportPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTotalPrice != null">
+        #{orderTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderLorry != null">
+        #{orderLorry,jdbcType=VARCHAR},
+      </if>
+      <if test="orderRemarks != null">
+        #{orderRemarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wgc.logistics.entity.AugustOrderListExample" resultType="java.lang.Long">
+    select count(*) from august_order_list
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update august_order_list
+    <set>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderType != null">
+        order_type = #{record.orderType,jdbcType=INTEGER},
+      </if>
+      <if test="record.receiptId != null">
+        receipt_id = #{record.receiptId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderGoodsName != null">
+        order_goods_name = #{record.orderGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderGoodsWeight != null">
+        order_goods_weight = #{record.orderGoodsWeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderMailer != null">
+        order_mailer = #{record.orderMailer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderMailAddress != null">
+        order_mail_address = #{record.orderMailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderReceivingAddress != null">
+        order_receiving_address = #{record.orderReceivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderState != null">
+        order_state = #{record.orderState,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderMailerPhone != null">
+        order_mailer_phone = #{record.orderMailerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderConsignee != null">
+        order_consignee = #{record.orderConsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderConsigneePhone != null">
+        order_consignee_phone = #{record.orderConsigneePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStartCity != null">
+        order_start_city = #{record.orderStartCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderMidpointCity != null">
+        order_midpoint_city = #{record.orderMidpointCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderEndCity != null">
+        order_end_city = #{record.orderEndCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderDeliveryPrice != null">
+        order_delivery_price = #{record.orderDeliveryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderDistributionPrice != null">
+        order_distribution_price = #{record.orderDistributionPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderTransportPrice != null">
+        order_transport_price = #{record.orderTransportPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderTotalPrice != null">
+        order_total_price = #{record.orderTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderLorry != null">
+        order_lorry = #{record.orderLorry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderRemarks != null">
+        order_remarks = #{record.orderRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update august_order_list
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      order_type = #{record.orderType,jdbcType=INTEGER},
+      receipt_id = #{record.receiptId,jdbcType=INTEGER},
+      order_goods_name = #{record.orderGoodsName,jdbcType=VARCHAR},
+      order_goods_weight = #{record.orderGoodsWeight,jdbcType=INTEGER},
+      order_mailer = #{record.orderMailer,jdbcType=VARCHAR},
+      order_mail_address = #{record.orderMailAddress,jdbcType=VARCHAR},
+      order_receiving_address = #{record.orderReceivingAddress,jdbcType=VARCHAR},
+      order_state = #{record.orderState,jdbcType=INTEGER},
+      order_mailer_phone = #{record.orderMailerPhone,jdbcType=VARCHAR},
+      order_consignee = #{record.orderConsignee,jdbcType=VARCHAR},
+      order_consignee_phone = #{record.orderConsigneePhone,jdbcType=VARCHAR},
+      order_start_city = #{record.orderStartCity,jdbcType=VARCHAR},
+      order_midpoint_city = #{record.orderMidpointCity,jdbcType=VARCHAR},
+      order_end_city = #{record.orderEndCity,jdbcType=VARCHAR},
+      order_delivery_price = #{record.orderDeliveryPrice,jdbcType=DECIMAL},
+      order_distribution_price = #{record.orderDistributionPrice,jdbcType=DECIMAL},
+      order_transport_price = #{record.orderTransportPrice,jdbcType=DECIMAL},
+      order_total_price = #{record.orderTotalPrice,jdbcType=DECIMAL},
+      order_lorry = #{record.orderLorry,jdbcType=VARCHAR},
+      order_remarks = #{record.orderRemarks,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wgc.logistics.entity.AugustOrderList">
+    update august_order_list
+    <set>
+      <if test="orderType != null">
+        order_type = #{orderType,jdbcType=INTEGER},
+      </if>
+      <if test="receiptId != null">
+        receipt_id = #{receiptId,jdbcType=INTEGER},
+      </if>
+      <if test="orderGoodsName != null">
+        order_goods_name = #{orderGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderGoodsWeight != null">
+        order_goods_weight = #{orderGoodsWeight,jdbcType=INTEGER},
+      </if>
+      <if test="orderMailer != null">
+        order_mailer = #{orderMailer,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMailAddress != null">
+        order_mail_address = #{orderMailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderReceivingAddress != null">
+        order_receiving_address = #{orderReceivingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderState != null">
+        order_state = #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="orderMailerPhone != null">
+        order_mailer_phone = #{orderMailerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderConsignee != null">
+        order_consignee = #{orderConsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="orderConsigneePhone != null">
+        order_consignee_phone = #{orderConsigneePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStartCity != null">
+        order_start_city = #{orderStartCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMidpointCity != null">
+        order_midpoint_city = #{orderMidpointCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderEndCity != null">
+        order_end_city = #{orderEndCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDeliveryPrice != null">
+        order_delivery_price = #{orderDeliveryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderDistributionPrice != null">
+        order_distribution_price = #{orderDistributionPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTransportPrice != null">
+        order_transport_price = #{orderTransportPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTotalPrice != null">
+        order_total_price = #{orderTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderLorry != null">
+        order_lorry = #{orderLorry,jdbcType=VARCHAR},
+      </if>
+      <if test="orderRemarks != null">
+        order_remarks = #{orderRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wgc.logistics.entity.AugustOrderList">
+    update august_order_list
+    set order_type = #{orderType,jdbcType=INTEGER},
+      receipt_id = #{receiptId,jdbcType=INTEGER},
+      order_goods_name = #{orderGoodsName,jdbcType=VARCHAR},
+      order_goods_weight = #{orderGoodsWeight,jdbcType=INTEGER},
+      order_mailer = #{orderMailer,jdbcType=VARCHAR},
+      order_mail_address = #{orderMailAddress,jdbcType=VARCHAR},
+      order_receiving_address = #{orderReceivingAddress,jdbcType=VARCHAR},
+      order_state = #{orderState,jdbcType=INTEGER},
+      order_mailer_phone = #{orderMailerPhone,jdbcType=VARCHAR},
+      order_consignee = #{orderConsignee,jdbcType=VARCHAR},
+      order_consignee_phone = #{orderConsigneePhone,jdbcType=VARCHAR},
+      order_start_city = #{orderStartCity,jdbcType=VARCHAR},
+      order_midpoint_city = #{orderMidpointCity,jdbcType=VARCHAR},
+      order_end_city = #{orderEndCity,jdbcType=VARCHAR},
+      order_delivery_price = #{orderDeliveryPrice,jdbcType=DECIMAL},
+      order_distribution_price = #{orderDistributionPrice,jdbcType=DECIMAL},
+      order_transport_price = #{orderTransportPrice,jdbcType=DECIMAL},
+      order_total_price = #{orderTotalPrice,jdbcType=DECIMAL},
+      order_lorry = #{orderLorry,jdbcType=VARCHAR},
+      order_remarks = #{orderRemarks,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wgc.logistics.dao.AugustDeliveryReceiptMapper">
+  <resultMap id="BaseResultMap" type="com.wgc.logistics.entity.AugustDeliveryReceipt">
+    <id column="receipt_id" jdbcType="INTEGER" property="receiptId" />
+    <result column="receipt_start_city" jdbcType="VARCHAR" property="receiptStartCity" />
+    <result column="receipt_end_city" jdbcType="VARCHAR" property="receiptEndCity" />
+    <result column="receipt_arrive_city" jdbcType="VARCHAR" property="receiptArriveCity" />
+    <result column="receipt_state" jdbcType="INTEGER" property="receiptState" />
+    <result column="receipt_generate_time" jdbcType="TIMESTAMP" property="receiptGenerateTime" />
+    <result column="receipt_remarks" jdbcType="VARCHAR" property="receiptRemarks" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    receipt_id, receipt_start_city, receipt_end_city, receipt_arrive_city, receipt_state, 
+    receipt_generate_time, receipt_remarks
+  </sql>
+  <select id="selectByExample" parameterType="com.wgc.logistics.entity.AugustDeliveryReceiptExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from august_delivery_receipt
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from august_delivery_receipt
+    where receipt_id = #{receiptId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from august_delivery_receipt
+    where receipt_id = #{receiptId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wgc.logistics.entity.AugustDeliveryReceiptExample">
+    delete from august_delivery_receipt
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wgc.logistics.entity.AugustDeliveryReceipt">
+    insert into august_delivery_receipt (receipt_id, receipt_start_city, receipt_end_city, 
+      receipt_arrive_city, receipt_state, receipt_generate_time, 
+      receipt_remarks)
+    values (#{receiptId,jdbcType=INTEGER}, #{receiptStartCity,jdbcType=VARCHAR}, #{receiptEndCity,jdbcType=VARCHAR}, 
+      #{receiptArriveCity,jdbcType=VARCHAR}, #{receiptState,jdbcType=INTEGER}, #{receiptGenerateTime,jdbcType=TIMESTAMP}, 
+      #{receiptRemarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wgc.logistics.entity.AugustDeliveryReceipt">
+    insert into august_delivery_receipt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="receiptId != null">
+        receipt_id,
+      </if>
+      <if test="receiptStartCity != null">
+        receipt_start_city,
+      </if>
+      <if test="receiptEndCity != null">
+        receipt_end_city,
+      </if>
+      <if test="receiptArriveCity != null">
+        receipt_arrive_city,
+      </if>
+      <if test="receiptState != null">
+        receipt_state,
+      </if>
+      <if test="receiptGenerateTime != null">
+        receipt_generate_time,
+      </if>
+      <if test="receiptRemarks != null">
+        receipt_remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="receiptId != null">
+        #{receiptId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptStartCity != null">
+        #{receiptStartCity,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptEndCity != null">
+        #{receiptEndCity,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptArriveCity != null">
+        #{receiptArriveCity,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptState != null">
+        #{receiptState,jdbcType=INTEGER},
+      </if>
+      <if test="receiptGenerateTime != null">
+        #{receiptGenerateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiptRemarks != null">
+        #{receiptRemarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wgc.logistics.entity.AugustDeliveryReceiptExample" resultType="java.lang.Long">
+    select count(*) from august_delivery_receipt
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update august_delivery_receipt
+    <set>
+      <if test="record.receiptId != null">
+        receipt_id = #{record.receiptId,jdbcType=INTEGER},
+      </if>
+      <if test="record.receiptStartCity != null">
+        receipt_start_city = #{record.receiptStartCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiptEndCity != null">
+        receipt_end_city = #{record.receiptEndCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiptArriveCity != null">
+        receipt_arrive_city = #{record.receiptArriveCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiptState != null">
+        receipt_state = #{record.receiptState,jdbcType=INTEGER},
+      </if>
+      <if test="record.receiptGenerateTime != null">
+        receipt_generate_time = #{record.receiptGenerateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.receiptRemarks != null">
+        receipt_remarks = #{record.receiptRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update august_delivery_receipt
+    set receipt_id = #{record.receiptId,jdbcType=INTEGER},
+      receipt_start_city = #{record.receiptStartCity,jdbcType=VARCHAR},
+      receipt_end_city = #{record.receiptEndCity,jdbcType=VARCHAR},
+      receipt_arrive_city = #{record.receiptArriveCity,jdbcType=VARCHAR},
+      receipt_state = #{record.receiptState,jdbcType=INTEGER},
+      receipt_generate_time = #{record.receiptGenerateTime,jdbcType=TIMESTAMP},
+      receipt_remarks = #{record.receiptRemarks,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wgc.logistics.entity.AugustDeliveryReceipt">
+    update august_delivery_receipt
+    <set>
+      <if test="receiptStartCity != null">
+        receipt_start_city = #{receiptStartCity,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptEndCity != null">
+        receipt_end_city = #{receiptEndCity,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptArriveCity != null">
+        receipt_arrive_city = #{receiptArriveCity,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptState != null">
+        receipt_state = #{receiptState,jdbcType=INTEGER},
+      </if>
+      <if test="receiptGenerateTime != null">
+        receipt_generate_time = #{receiptGenerateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiptRemarks != null">
+        receipt_remarks = #{receiptRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where receipt_id = #{receiptId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wgc.logistics.entity.AugustDeliveryReceipt">
+    update august_delivery_receipt
+    set receipt_start_city = #{receiptStartCity,jdbcType=VARCHAR},
+      receipt_end_city = #{receiptEndCity,jdbcType=VARCHAR},
+      receipt_arrive_city = #{receiptArriveCity,jdbcType=VARCHAR},
+      receipt_state = #{receiptState,jdbcType=INTEGER},
+      receipt_generate_time = #{receiptGenerateTime,jdbcType=TIMESTAMP},
+      receipt_remarks = #{receiptRemarks,jdbcType=VARCHAR}
+    where receipt_id = #{receiptId,jdbcType=INTEGER}
+  </update>
+</mapper>

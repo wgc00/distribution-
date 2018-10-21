@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wgc.logistics.dao.AugustStationMapper">
+  <resultMap id="BaseResultMap" type="com.wgc.logistics.entity.AugustStation">
+    <id column="station_id" jdbcType="INTEGER" property="stationId" />
+    <result column="station_name" jdbcType="VARCHAR" property="stationName" />
+    <result column="province_id" jdbcType="VARCHAR" property="provinceId" />
+    <result column="city_id" jdbcType="VARCHAR" property="cityId" />
+    <result column="admin_id" jdbcType="VARCHAR" property="adminId" />
+    <result column="station_phone" jdbcType="VARCHAR" property="stationPhone" />
+    <result column="station_adress" jdbcType="VARCHAR" property="stationAdress" />
+    <result column="route_number" jdbcType="INTEGER" property="routeNumber" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="station_remarks" jdbcType="VARCHAR" property="stationRemarks" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    station_id, station_name, province_id, city_id, admin_id, station_phone, station_adress, 
+    route_number, user_id, station_remarks
+  </sql>
+  <select id="selectByExample" parameterType="com.wgc.logistics.entity.AugustStationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from august_station
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from august_station
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from august_station
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wgc.logistics.entity.AugustStationExample">
+    delete from august_station
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wgc.logistics.entity.AugustStation">
+    insert into august_station (station_id, station_name, province_id, 
+      city_id, admin_id, station_phone, 
+      station_adress, route_number, user_id, 
+      station_remarks)
+    values (#{stationId,jdbcType=INTEGER}, #{stationName,jdbcType=VARCHAR}, #{provinceId,jdbcType=VARCHAR}, 
+      #{cityId,jdbcType=VARCHAR}, #{adminId,jdbcType=VARCHAR}, #{stationPhone,jdbcType=VARCHAR}, 
+      #{stationAdress,jdbcType=VARCHAR}, #{routeNumber,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{stationRemarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wgc.logistics.entity.AugustStation">
+    insert into august_station
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stationId != null">
+        station_id,
+      </if>
+      <if test="stationName != null">
+        station_name,
+      </if>
+      <if test="provinceId != null">
+        province_id,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="stationPhone != null">
+        station_phone,
+      </if>
+      <if test="stationAdress != null">
+        station_adress,
+      </if>
+      <if test="routeNumber != null">
+        route_number,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="stationRemarks != null">
+        station_remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stationId != null">
+        #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="stationName != null">
+        #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null">
+        #{provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        #{adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="stationPhone != null">
+        #{stationPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="stationAdress != null">
+        #{stationAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="routeNumber != null">
+        #{routeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="stationRemarks != null">
+        #{stationRemarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wgc.logistics.entity.AugustStationExample" resultType="java.lang.Long">
+    select count(*) from august_station
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update august_station
+    <set>
+      <if test="record.stationId != null">
+        station_id = #{record.stationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stationName != null">
+        station_name = #{record.stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceId != null">
+        province_id = #{record.provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityId != null">
+        city_id = #{record.cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminId != null">
+        admin_id = #{record.adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stationPhone != null">
+        station_phone = #{record.stationPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stationAdress != null">
+        station_adress = #{record.stationAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routeNumber != null">
+        route_number = #{record.routeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stationRemarks != null">
+        station_remarks = #{record.stationRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update august_station
+    set station_id = #{record.stationId,jdbcType=INTEGER},
+      station_name = #{record.stationName,jdbcType=VARCHAR},
+      province_id = #{record.provinceId,jdbcType=VARCHAR},
+      city_id = #{record.cityId,jdbcType=VARCHAR},
+      admin_id = #{record.adminId,jdbcType=VARCHAR},
+      station_phone = #{record.stationPhone,jdbcType=VARCHAR},
+      station_adress = #{record.stationAdress,jdbcType=VARCHAR},
+      route_number = #{record.routeNumber,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      station_remarks = #{record.stationRemarks,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wgc.logistics.entity.AugustStation">
+    update august_station
+    <set>
+      <if test="stationName != null">
+        station_name = #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null">
+        province_id = #{provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="stationPhone != null">
+        station_phone = #{stationPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="stationAdress != null">
+        station_adress = #{stationAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="routeNumber != null">
+        route_number = #{routeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="stationRemarks != null">
+        station_remarks = #{stationRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wgc.logistics.entity.AugustStation">
+    update august_station
+    set station_name = #{stationName,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=VARCHAR},
+      station_phone = #{stationPhone,jdbcType=VARCHAR},
+      station_adress = #{stationAdress,jdbcType=VARCHAR},
+      route_number = #{routeNumber,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      station_remarks = #{stationRemarks,jdbcType=VARCHAR}
+    where station_id = #{stationId,jdbcType=INTEGER}
+  </update>
+</mapper>

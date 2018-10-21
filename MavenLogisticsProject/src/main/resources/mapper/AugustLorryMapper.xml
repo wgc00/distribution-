@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wgc.logistics.dao.AugustLorryMapper">
+  <resultMap id="BaseResultMap" type="com.wgc.logistics.entity.AugustLorry">
+    <id column="lorry_number" jdbcType="INTEGER" property="lorryNumber" />
+    <result column="lorry_model" jdbcType="VARCHAR" property="lorryModel" />
+    <result column="lorry_producing_area" jdbcType="VARCHAR" property="lorryProducingArea" />
+    <result column="route_number" jdbcType="VARCHAR" property="routeNumber" />
+    <result column="lorry_production_date" jdbcType="TIMESTAMP" property="lorryProductionDate" />
+    <result column="lorry_purchase_date" jdbcType="TIMESTAMP" property="lorryPurchaseDate" />
+    <result column="lorry_remarks" jdbcType="VARCHAR" property="lorryRemarks" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    lorry_number, lorry_model, lorry_producing_area, route_number, lorry_production_date, 
+    lorry_purchase_date, lorry_remarks
+  </sql>
+  <select id="selectByExample" parameterType="com.wgc.logistics.entity.AugustLorryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from august_lorry
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from august_lorry
+    where lorry_number = #{lorryNumber,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from august_lorry
+    where lorry_number = #{lorryNumber,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wgc.logistics.entity.AugustLorryExample">
+    delete from august_lorry
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wgc.logistics.entity.AugustLorry">
+    insert into august_lorry (lorry_number, lorry_model, lorry_producing_area, 
+      route_number, lorry_production_date, lorry_purchase_date, 
+      lorry_remarks)
+    values (#{lorryNumber,jdbcType=INTEGER}, #{lorryModel,jdbcType=VARCHAR}, #{lorryProducingArea,jdbcType=VARCHAR}, 
+      #{routeNumber,jdbcType=VARCHAR}, #{lorryProductionDate,jdbcType=TIMESTAMP}, #{lorryPurchaseDate,jdbcType=TIMESTAMP}, 
+      #{lorryRemarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wgc.logistics.entity.AugustLorry">
+    insert into august_lorry
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lorryNumber != null">
+        lorry_number,
+      </if>
+      <if test="lorryModel != null">
+        lorry_model,
+      </if>
+      <if test="lorryProducingArea != null">
+        lorry_producing_area,
+      </if>
+      <if test="routeNumber != null">
+        route_number,
+      </if>
+      <if test="lorryProductionDate != null">
+        lorry_production_date,
+      </if>
+      <if test="lorryPurchaseDate != null">
+        lorry_purchase_date,
+      </if>
+      <if test="lorryRemarks != null">
+        lorry_remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lorryNumber != null">
+        #{lorryNumber,jdbcType=INTEGER},
+      </if>
+      <if test="lorryModel != null">
+        #{lorryModel,jdbcType=VARCHAR},
+      </if>
+      <if test="lorryProducingArea != null">
+        #{lorryProducingArea,jdbcType=VARCHAR},
+      </if>
+      <if test="routeNumber != null">
+        #{routeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lorryProductionDate != null">
+        #{lorryProductionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lorryPurchaseDate != null">
+        #{lorryPurchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lorryRemarks != null">
+        #{lorryRemarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wgc.logistics.entity.AugustLorryExample" resultType="java.lang.Long">
+    select count(*) from august_lorry
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update august_lorry
+    <set>
+      <if test="record.lorryNumber != null">
+        lorry_number = #{record.lorryNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.lorryModel != null">
+        lorry_model = #{record.lorryModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lorryProducingArea != null">
+        lorry_producing_area = #{record.lorryProducingArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routeNumber != null">
+        route_number = #{record.routeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lorryProductionDate != null">
+        lorry_production_date = #{record.lorryProductionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lorryPurchaseDate != null">
+        lorry_purchase_date = #{record.lorryPurchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lorryRemarks != null">
+        lorry_remarks = #{record.lorryRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update august_lorry
+    set lorry_number = #{record.lorryNumber,jdbcType=INTEGER},
+      lorry_model = #{record.lorryModel,jdbcType=VARCHAR},
+      lorry_producing_area = #{record.lorryProducingArea,jdbcType=VARCHAR},
+      route_number = #{record.routeNumber,jdbcType=VARCHAR},
+      lorry_production_date = #{record.lorryProductionDate,jdbcType=TIMESTAMP},
+      lorry_purchase_date = #{record.lorryPurchaseDate,jdbcType=TIMESTAMP},
+      lorry_remarks = #{record.lorryRemarks,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wgc.logistics.entity.AugustLorry">
+    update august_lorry
+    <set>
+      <if test="lorryModel != null">
+        lorry_model = #{lorryModel,jdbcType=VARCHAR},
+      </if>
+      <if test="lorryProducingArea != null">
+        lorry_producing_area = #{lorryProducingArea,jdbcType=VARCHAR},
+      </if>
+      <if test="routeNumber != null">
+        route_number = #{routeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lorryProductionDate != null">
+        lorry_production_date = #{lorryProductionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lorryPurchaseDate != null">
+        lorry_purchase_date = #{lorryPurchaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lorryRemarks != null">
+        lorry_remarks = #{lorryRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lorry_number = #{lorryNumber,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wgc.logistics.entity.AugustLorry">
+    update august_lorry
+    set lorry_model = #{lorryModel,jdbcType=VARCHAR},
+      lorry_producing_area = #{lorryProducingArea,jdbcType=VARCHAR},
+      route_number = #{routeNumber,jdbcType=VARCHAR},
+      lorry_production_date = #{lorryProductionDate,jdbcType=TIMESTAMP},
+      lorry_purchase_date = #{lorryPurchaseDate,jdbcType=TIMESTAMP},
+      lorry_remarks = #{lorryRemarks,jdbcType=VARCHAR}
+    where lorry_number = #{lorryNumber,jdbcType=INTEGER}
+  </update>
+</mapper>

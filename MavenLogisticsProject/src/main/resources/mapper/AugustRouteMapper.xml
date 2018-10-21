@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wgc.logistics.dao.AugustRouteMapper">
+  <resultMap id="BaseResultMap" type="com.wgc.logistics.entity.AugustRoute">
+    <id column="route_number" jdbcType="INTEGER" property="routeNumber" />
+    <result column="route_name" jdbcType="VARCHAR" property="routeName" />
+    <result column="province_start_number" jdbcType="INTEGER" property="provinceStartNumber" />
+    <result column="city_start_number" jdbcType="INTEGER" property="cityStartNumber" />
+    <result column="province_midpoint_number" jdbcType="INTEGER" property="provinceMidpointNumber" />
+    <result column="city_midpoint_number" jdbcType="INTEGER" property="cityMidpointNumber" />
+    <result column="province_end_number" jdbcType="INTEGER" property="provinceEndNumber" />
+    <result column="city_end_number" jdbcType="INTEGER" property="cityEndNumber" />
+    <result column="route_transport_price" jdbcType="DECIMAL" property="routeTransportPrice" />
+    <result column="route_remarks" jdbcType="VARCHAR" property="routeRemarks" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    route_number, route_name, province_start_number, city_start_number, province_midpoint_number, 
+    city_midpoint_number, province_end_number, city_end_number, route_transport_price, 
+    route_remarks
+  </sql>
+  <select id="selectByExample" parameterType="com.wgc.logistics.entity.AugustRouteExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from august_route
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from august_route
+    where route_number = #{routeNumber,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from august_route
+    where route_number = #{routeNumber,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wgc.logistics.entity.AugustRouteExample">
+    delete from august_route
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wgc.logistics.entity.AugustRoute">
+    insert into august_route (route_number, route_name, province_start_number, 
+      city_start_number, province_midpoint_number, 
+      city_midpoint_number, province_end_number, 
+      city_end_number, route_transport_price, route_remarks
+      )
+    values (#{routeNumber,jdbcType=INTEGER}, #{routeName,jdbcType=VARCHAR}, #{provinceStartNumber,jdbcType=INTEGER}, 
+      #{cityStartNumber,jdbcType=INTEGER}, #{provinceMidpointNumber,jdbcType=INTEGER}, 
+      #{cityMidpointNumber,jdbcType=INTEGER}, #{provinceEndNumber,jdbcType=INTEGER}, 
+      #{cityEndNumber,jdbcType=INTEGER}, #{routeTransportPrice,jdbcType=DECIMAL}, #{routeRemarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wgc.logistics.entity.AugustRoute">
+    insert into august_route
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="routeNumber != null">
+        route_number,
+      </if>
+      <if test="routeName != null">
+        route_name,
+      </if>
+      <if test="provinceStartNumber != null">
+        province_start_number,
+      </if>
+      <if test="cityStartNumber != null">
+        city_start_number,
+      </if>
+      <if test="provinceMidpointNumber != null">
+        province_midpoint_number,
+      </if>
+      <if test="cityMidpointNumber != null">
+        city_midpoint_number,
+      </if>
+      <if test="provinceEndNumber != null">
+        province_end_number,
+      </if>
+      <if test="cityEndNumber != null">
+        city_end_number,
+      </if>
+      <if test="routeTransportPrice != null">
+        route_transport_price,
+      </if>
+      <if test="routeRemarks != null">
+        route_remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="routeNumber != null">
+        #{routeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="routeName != null">
+        #{routeName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceStartNumber != null">
+        #{provinceStartNumber,jdbcType=INTEGER},
+      </if>
+      <if test="cityStartNumber != null">
+        #{cityStartNumber,jdbcType=INTEGER},
+      </if>
+      <if test="provinceMidpointNumber != null">
+        #{provinceMidpointNumber,jdbcType=INTEGER},
+      </if>
+      <if test="cityMidpointNumber != null">
+        #{cityMidpointNumber,jdbcType=INTEGER},
+      </if>
+      <if test="provinceEndNumber != null">
+        #{provinceEndNumber,jdbcType=INTEGER},
+      </if>
+      <if test="cityEndNumber != null">
+        #{cityEndNumber,jdbcType=INTEGER},
+      </if>
+      <if test="routeTransportPrice != null">
+        #{routeTransportPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="routeRemarks != null">
+        #{routeRemarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wgc.logistics.entity.AugustRouteExample" resultType="java.lang.Long">
+    select count(*) from august_route
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update august_route
+    <set>
+      <if test="record.routeNumber != null">
+        route_number = #{record.routeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.routeName != null">
+        route_name = #{record.routeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceStartNumber != null">
+        province_start_number = #{record.provinceStartNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityStartNumber != null">
+        city_start_number = #{record.cityStartNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.provinceMidpointNumber != null">
+        province_midpoint_number = #{record.provinceMidpointNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityMidpointNumber != null">
+        city_midpoint_number = #{record.cityMidpointNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.provinceEndNumber != null">
+        province_end_number = #{record.provinceEndNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityEndNumber != null">
+        city_end_number = #{record.cityEndNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.routeTransportPrice != null">
+        route_transport_price = #{record.routeTransportPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.routeRemarks != null">
+        route_remarks = #{record.routeRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update august_route
+    set route_number = #{record.routeNumber,jdbcType=INTEGER},
+      route_name = #{record.routeName,jdbcType=VARCHAR},
+      province_start_number = #{record.provinceStartNumber,jdbcType=INTEGER},
+      city_start_number = #{record.cityStartNumber,jdbcType=INTEGER},
+      province_midpoint_number = #{record.provinceMidpointNumber,jdbcType=INTEGER},
+      city_midpoint_number = #{record.cityMidpointNumber,jdbcType=INTEGER},
+      province_end_number = #{record.provinceEndNumber,jdbcType=INTEGER},
+      city_end_number = #{record.cityEndNumber,jdbcType=INTEGER},
+      route_transport_price = #{record.routeTransportPrice,jdbcType=DECIMAL},
+      route_remarks = #{record.routeRemarks,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wgc.logistics.entity.AugustRoute">
+    update august_route
+    <set>
+      <if test="routeName != null">
+        route_name = #{routeName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceStartNumber != null">
+        province_start_number = #{provinceStartNumber,jdbcType=INTEGER},
+      </if>
+      <if test="cityStartNumber != null">
+        city_start_number = #{cityStartNumber,jdbcType=INTEGER},
+      </if>
+      <if test="provinceMidpointNumber != null">
+        province_midpoint_number = #{provinceMidpointNumber,jdbcType=INTEGER},
+      </if>
+      <if test="cityMidpointNumber != null">
+        city_midpoint_number = #{cityMidpointNumber,jdbcType=INTEGER},
+      </if>
+      <if test="provinceEndNumber != null">
+        province_end_number = #{provinceEndNumber,jdbcType=INTEGER},
+      </if>
+      <if test="cityEndNumber != null">
+        city_end_number = #{cityEndNumber,jdbcType=INTEGER},
+      </if>
+      <if test="routeTransportPrice != null">
+        route_transport_price = #{routeTransportPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="routeRemarks != null">
+        route_remarks = #{routeRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where route_number = #{routeNumber,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wgc.logistics.entity.AugustRoute">
+    update august_route
+    set route_name = #{routeName,jdbcType=VARCHAR},
+      province_start_number = #{provinceStartNumber,jdbcType=INTEGER},
+      city_start_number = #{cityStartNumber,jdbcType=INTEGER},
+      province_midpoint_number = #{provinceMidpointNumber,jdbcType=INTEGER},
+      city_midpoint_number = #{cityMidpointNumber,jdbcType=INTEGER},
+      province_end_number = #{provinceEndNumber,jdbcType=INTEGER},
+      city_end_number = #{cityEndNumber,jdbcType=INTEGER},
+      route_transport_price = #{routeTransportPrice,jdbcType=DECIMAL},
+      route_remarks = #{routeRemarks,jdbcType=VARCHAR}
+    where route_number = #{routeNumber,jdbcType=INTEGER}
+  </update>
+</mapper>
